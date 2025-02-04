@@ -1,7 +1,7 @@
 using System;
 using static System.Console;
 using System.Globalization;
-class InchesToCentimeters
+class InchesToCentimetersInteractive
 {
 	static void Main()
 	{
