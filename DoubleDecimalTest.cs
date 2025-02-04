@@ -5,6 +5,9 @@ class DoubleDecimalTest
 {
 	static void Main()
 	{
-		// Write your code here
+		double num1 = 10.10;
+		decimal num2 = 10.10;
+		WriteLine(num1);
+		WriteLine(num2);
 	}
 }
