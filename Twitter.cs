@@ -5,6 +5,13 @@ class Twitter
 {
 	static void Main()
 	{
-		// Write your code here
+		string user_input;
+		WriteLine("Write a message: ");
+		user_input = Convert.ToString(ReadLine());
+		if (user_input.Length < 140){
+			WriteLine("The message is okay");
+		} else{
+			WriteLine("The message is too long");
+		}
 	}
 }
