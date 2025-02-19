@@ -5,11 +5,12 @@
 // or in neither order
 using System;
 using static System.Console;
+using System.Globalization;
 class DebugFour2
 {
    static void Main()
    {
-      int num1, num2, num3
+      int num1, num2, num3;
       string snum1, snum2, snum3;
       Write("Enter first number ");
       snum1 = ReadLine();
@@ -20,12 +21,15 @@ class DebugFour2
       Write("Enter third number ");
       snum3 = ReadLine();
       num3 = Convert.ToInt32(snum3);
-      if(num1 > num2 && num2 <= num3)
+      WriteLine("{0}{1}{2}", num1, num2, num3);
+      if(num1 <= num2 && num2 <= num3){
          WriteLine("Numbers are in sequential order");
-      else
-         if(num1 < num2 && num2 == num3)
+      } else{
+         if(num1 >= num2 && num2 >= num3){
             WriteLine("Numbers are in reverse order");
-         else
+         } else{
             WriteLine("Numbers are in neither sequential nor reverse order");
+         }
+      }
    }
 }
