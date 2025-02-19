@@ -23,16 +23,16 @@ class DebugFour4
       const int BONUS2 = 1500;
       WriteLine("What was the sales amount? ");
       inputString = ReadLine();
-      sales = Convert.ToDouble(inputtString);
+      sales = Convert.ToDouble(inputString);
       commission = LOWPCT * sales;
-      if(sales <= LOWSALES)
+      if(sales > LOWSALES && sales <= MEDSALES)
         commission += (sales - LOWSALES) * MEDPCT;
       else
-        if(sales == MEDSALES)
-           commission += BONUS1;
+        if(sales > MEDSALES && sales <= HIGHSALES)
+           commission += (sales - LOWSALES) * MEDPCT + BONUS1;
          else
            if(sales > HIGHSALES)
-             commission = BONUS2; 
+             commission += (sales - LOWSALES) * MEDPCT + BONUS1 + BONUS2; 
       WriteLine("Sales: {0}\nCommission: {1}",
         sales.ToString("C", CultureInfo.GetCultureInfo("en-US")), commission.ToString("C", CultureInfo.GetCultureInfo("en-US")));
   }
