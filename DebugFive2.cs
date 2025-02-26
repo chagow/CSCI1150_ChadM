@@ -8,26 +8,26 @@ class DebugFive2
 {
    static void Main()
    {
-      const string ITEM209 = "209";
-      const string ITEM312 = "312";
-      const string ITEM414 = "414";
+      const double ITEM209 = 209;
+      const double ITEM312 = 312;
+      const double ITEM414 = 414;
       const double PRICE209 = 12.99, PRICE312 = 16.77, PRICE414 = 109.07;
       double price;
-      string stockNum;
+      double stockNum;
       Write("Please enter the stock number of the item you want ");
-      stockNum = ReadLine();
-      while(stockNum != ITEM209 || stockNum != ITEM312 || stockNum != ITEM414)
+      stockNum = Convert.ToDouble(ReadLine());
+      while(stockNum != ITEM209 && stockNum != ITEM312 && stockNum != ITEM414)
       {
          WriteLine("Invalid stock number. Please enter again. ");
-         stockNum = ConsoleReadLine();
+         stockNum = Convert.ToDouble(ReadLine());
       }
       if(stockNum == ITEM209)
          price = PRICE209;
       else
          if(stockNum == ITEM312)
-            price = PRICE414;
-         else
             price = PRICE312;
-      WriteLine("The price for item # {0} is {1}}", stockNum, price.ToString("C", CultureInfo.GetCultureInfo("en-US")));
+         else
+            price = PRICE414;
+      WriteLine("The price for item # {0} is {1}", stockNum, price.ToString("C", CultureInfo.GetCultureInfo("en-US")));
    }
 }
