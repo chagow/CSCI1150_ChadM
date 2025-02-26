@@ -5,6 +5,15 @@ class Sum200
 {
 	static void Main()
 	{
-		// Write your code here
+		int sum = 0;
+		for (int i = 0; i <= 200; i++){
+			sum += i;
+			if(i == 100){
+				WriteLine(sum);
+			}
+			if(i == 200){
+				WriteLine(sum);
+			}
+		}
 	}
 }
