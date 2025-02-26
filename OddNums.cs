@@ -5,6 +5,8 @@ class OddNums
 {
 	static void Main()
 	{
-		// Write your code here
+		for(int i = 1; i <= 99; i+=2){
+			WriteLine(i);
+		}
 	}
 }
