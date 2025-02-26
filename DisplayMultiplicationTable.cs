@@ -5,6 +5,11 @@ class DisplayMultiplicationTable
 {
 	static void Main()
 	{
-		// Write your code here
+		for (int a = 0; a <= 10; a++){
+			for (int b = 0; b <= 10; b++){
+				Write(a * b + "\t");
+			}
+			Write("\n");
+		}
 	}
 }
