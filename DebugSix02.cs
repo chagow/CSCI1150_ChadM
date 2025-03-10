@@ -1,5 +1,7 @@
 // Program averages four numbers
+using System;
 using static System.Console;
+using System.Globalization;
 class DebugSix02
 {
    static void Main()
@@ -9,14 +11,14 @@ class DebugSix02
       double average;
       double total = 0;
       Write("\nThe numbers are...");
-      for(x = 1; x < numbers.Length; ++x)
-         Write("{1, 6}", nmbers[x]);
+      for(x = 0; x < numbers.Length; ++x)
+         Write("{0}, ", numbers[x]);
       WriteLine();      
       for(x = 0; x < numbers.Length; ++x)
       {
-         total = numbers[x];
+         total += numbers[x];
       }   
-      average = total / numbers.length;
-      Write("The average is {0}");
+      average = total / numbers.Length;
+      Write("The average is {0}", average);
    }
 }
