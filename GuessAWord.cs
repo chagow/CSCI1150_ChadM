@@ -35,7 +35,7 @@ class GuessAWord
 	                loop = 1;
 	            } else{
 	        	Write("\nGuess again: ");
-	                }
+		    }
 		}
 	}
 }
