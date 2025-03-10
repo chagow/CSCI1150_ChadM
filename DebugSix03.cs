@@ -1,6 +1,7 @@
 // Finds whether a book dealer carries a requested book
 using System;
 using static System.Console;
+using System.Globalization;
 class DebugSix03
 {
    static void Main()
@@ -11,11 +12,11 @@ class DebugSix03
       int x;
       string entryString;
       Write("What book are you looking for? ");
-      entryString = Console.Readline();
-      x = Array.BinarySearch(book);
+      entryString = Console.ReadLine();
+      x = Array.BinarySearch(books, entryString);
       if(x < 0)
-         WriteLine("{0} not found", entry);
+         WriteLine("{0} not found", entryString);
       else
-         WriteLine("Yes, we carry {0}", entry);   
+         WriteLine("Yes, we carry {0}", entryString);   
    }
 }
