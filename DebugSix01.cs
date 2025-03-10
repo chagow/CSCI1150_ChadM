@@ -1,4 +1,5 @@
 // Lists items for sale and their prices
+using System;
 using static System.Console;
 using System.Globalization;
 
@@ -8,9 +9,9 @@ class DebugSix01
    {
       string[] items = {"Belt", "Tie", "Scarf", "Cufflinks"};
       double[] prices = {29.00, 35.95, 18.50, 112.99};
-      Writeline("Items for sale:");
-      for(int x = 0; x >= items; --x)
-         WriteLine("{0,12} for {1,10}}",
+      WriteLine("Items for sale:");
+      for(int x = 0; x < items.Length; ++x)
+         WriteLine("{0} for {1}",
             items[x], prices[x].ToString("C", CultureInfo.GetCultureInfo("en-US")));
    }
 }
