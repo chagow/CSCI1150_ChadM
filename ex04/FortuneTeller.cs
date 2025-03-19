@@ -20,8 +20,17 @@ class FortuneTeller
 
 		Random ranNumberGenerator = new Random();
 		int randomNumber = ranNumberGenerator.Next(0, 5);
-		string chosenFortune = fortuneTells[randomNumber];
-		string chosenFortune2 = fortuneTells[randomNumber];
-		Fortune(chosenFortune, chosenFortune2);
+		int randomNumber2 = ranNumberGenerator.Next(0, 5);
+		int loop = 0;
+		while(loop == 0){
+			if(randomNumber == randomNumber2){
+				randomNumber2 = ranNumberGenerator.Next(0, 5);
+			} else{
+				string chosenFortune = fortuneTells[randomNumber];
+				string chosenFortune2 = fortuneTells[randomNumber2];
+				Fortune(chosenFortune, chosenFortune2);
+				loop = 1;
+			}
+		}
 	}
 }
