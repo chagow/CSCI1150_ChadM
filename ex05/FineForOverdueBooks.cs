@@ -25,6 +25,8 @@ class FineForOverdueBooks
 		int books = Convert.ToInt32(ReadLine());
 		Write("How many days have they been overdue: ");
 		int days = Convert.ToInt32(ReadLine());
+		// The code here is turning the method into a variable. It was for the Cengage Companion.
+		// However, it kept printing "str - AssertionError" no matter what tricks I tried.
 		double printCost = DisplayFine(days, books);
 		string printStatement = Convert.ToString("The fine for "+books+" book(s) for "+days+" day(s) is "+printCost.ToString("C", CultureInfo.GetCultureInfo("en-US")));
 		WriteLine(printStatement);
