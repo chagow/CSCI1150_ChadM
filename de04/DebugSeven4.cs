@@ -5,29 +5,30 @@
 // median is the mean of the two middle values
 using System;
 using static System.Console;
+using System.Globalization;
 class DebugSeven4
 {
-   void Main()
+   static void Main()
    {
       int[] firstArray = {10, 9, 2, 3, 5, 6};
-      int[] secondArray = (112, 456, 782);
+      int[] secondArray = {112, 456, 782};
       int[] thirdArray = {9, 12, 45, 82, 84, 67, 2, 6};
       WriteLine("The median value of the first array is {0}",
          FindMedian(firstArray));
       WriteLine("The median value of the second array is {0}",
-         FindMedian(secondArrray));
+         FindMedian(secondArray));
       WriteLine("The median value of the third array is {0}",
-         FindMediam(thirdArray));
+         FindMedian(thirdArray));
    }
    private static double FindMedian(int[] array)
    {
       double median;
-      middle = array.Length / 2;
+      int middle = array.Length / 2;
       Array.Sort(array);
       if(array.Length % 2 == 0)
           median = (double)(array[middle - 1] + array[middle]) / 2;
       else
-          median = array[mid];
+          median = array[middle];
       return median;
    }
 }
