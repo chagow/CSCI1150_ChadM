@@ -111,7 +111,7 @@ class GreenvilleRevenue
         }
         loop = 1;
     }
-    Write("The types of talent are: \nSinging {0,-20} \nDancing {1,-20} \nMusical Instrument {2,-20} \nOther {3,-20}",
+    WriteLine("The types of talent are: \nSinging: {0} \nDancing: {1} \nMusical Instrument: {2} \nOther: {3}",
     SCount, DCount, MCount, OCount);
    }
 }
