@@ -112,6 +112,6 @@ class MarshallsRevenue
    }
    // Due to not being able to fully implement the arrays from the previous week,
    // this will remain unfinished, since I have yet to wrap my head around arrays.
-   // My apologies for my incompentence, I will try to fix this if I have more time to do so.
+   // My apologies for my incompetence, I will try to fix this if I have more time to do so.
    // public static void GetSelectedMurals()
 }
