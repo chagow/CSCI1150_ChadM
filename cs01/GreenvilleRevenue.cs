@@ -78,7 +78,8 @@ class GreenvilleRevenue
         array[i,0] = ReadLine();
         for(j = 0; j < 1; ++j){
             Write("Talent (S/D/M/O): ");
-            array[i,1] = ReadLine();
+            string talentFix = ReadLine();
+            array[i,1] = talentFix.ToUpper();
         }
     }
     return array;
@@ -88,30 +89,73 @@ class GreenvilleRevenue
     int loop = 0;
     int rowLength = array.GetLength(0);
     int SCount = 0, DCount = 0, MCount = 0, OCount = 0;
-    int[,] index = new int [4,rowLength]; 
 
     while(loop == 0){
         for(int i = 0; i < rowLength; ++i){
             if(array[i,1] == "S"){
-                index[0,i] = i;
                 SCount += 1;
             }
             if(array[i,1] == "D"){
-                index[1,i] = i;
                 DCount += 1;
             }
             if(array[i,1] == "M"){
-                index[2,i] = i;
                 MCount += 1;
             }
             if(array[i,1] == "O"){
-                index[3,i] = i;
                 OCount += 1;
             }
         }
         loop = 1;
     }
-    WriteLine("The types of talent are: \nSinging: {0} \nDancing: {1} \nMusical Instrument: {2} \nOther: {3}",
+    WriteLine("The amount of talent are: \nSinging: {0} \nDancing: {1} \nMusical Instrument: {2} \nOther: {3}",
     SCount, DCount, MCount, OCount);
+    while(loop == 1){
+        Write("What would you like to view (S/D/M/O) or 'Z' to quit: ");
+        string consInput = ReadLine();
+        switch(consInput.ToUpper()){
+            case "S":
+                for(int i = 0; i < rowLength; ++i){
+                    for(int j = 0; j < 1; ++j){
+                        if(array[i,1] == "S"){
+                            WriteLine("{0} ", array[i,0]);
+                        }
+                    }
+                }
+                break;
+            case "D":
+                for(int i = 0; i < rowLength; ++i){
+                    for(int j = 0; j < 1; ++j){
+                        if(array[i,1] == "D"){
+                            WriteLine("{0} ", array[i,0]);
+                        }
+                    }
+                }
+                break;
+            case "M":
+                for(int i = 0; i < rowLength; ++i){
+                    for(int j = 0; j < 1; ++j){
+                        if(array[i,1] == "M"){
+                             WriteLine("{0} ", array[i,0]);
+                        }
+                    }
+                }
+                break;
+            case "O":
+                for(int i = 0; i < rowLength; ++i){
+                    for(int j = 0; j < 1; ++j){
+                        if(array[i,1] == "O"){
+                            WriteLine("{0} ", array[i,0]);
+                        }
+                    }
+                }
+                break;
+            case "Z":
+                loop = 2;
+                break;
+            default:
+                WriteLine("{0} is an invalid code");
+                break;
+        }
+    }
    }
 }
