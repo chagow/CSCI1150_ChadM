@@ -1,27 +1,29 @@
 // Overloaded method gives bonus points
 // whether grade is a number or letter
+using System;
 using static System.Console;
+using System.Globalization;
 class DebugEight2
 {
    static void Main()
    {
       int numericScore = 82;
-      string letterScore = B;
+      string letterScore = "B";
       Write("Score was {0}. ", numericScore);
       GiveBonus(ref numericScore);
       WriteLine("Now it is {0}.", numericScore);
-      Write("Grade was ", letterScore);
+      Write("Grade was {0}. ", letterScore);
       GiveBonus(ref letterScore);
-      WriteLine("Now it is ", letterScore);
+      WriteLine("Now it is {0}.", letterScore);
    }
-   public static void giveBonus(int ref testScore)
+   public static void GiveBonus(ref int testScore)
    {
       const int BONUS = 5;
-      testScore = BONUS;
+      testScore += BONUS;
    }
-   public static void GiveBonus(string ref letterScore)
+   public static void GiveBonus(ref string letterScore)
    {
       const string BONUS = "+";
-      letterScore = BONUS;
+      letterScore += BONUS;
    }
 }
