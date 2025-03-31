@@ -83,15 +83,39 @@ class GreenvilleRevenue
    {
     int i = 0, j = 0;
     int rowLength = array.GetLength(0);
-
-    for(i = 0; i < rowLength; ++i){
-        Write("Name {0}: ", i+1);
-        array[i,0] = ReadLine();
-        for(j = 0; j < 1; ++j){
-            Write("Talent (S/D/M/O): ");
-            string talentFix = ReadLine();
-            array[i,1] = talentFix.ToUpper();
+    string check;
+    bool result, loop1 = true, loop2 = true;
+    while(loop1 == true){
+        for(i = 0; i < rowLength; ++i){
+            Write("Name of Contestant {0}: ", i+1);
+            while(loop2 == true){
+                int dataCheck;
+                check = ReadLine();
+                result = int.TryParse(check, out dataCheck);
+                if(result){
+                    Write("Invalid Input, Try again: ");
+                } else{
+                    array[i,0] = check;
+                    loop2 = false;
+                }
+            }
+            for(j = 0; j < 1; ++j){
+                Write("Talent (S/D/M/O): ");
+                while(loop2 == false){
+                    char dataCheck;
+                    check = ReadLine();
+                    result = char.TryParse(check, out dataCheck);
+                    if(result){
+                        string talentFix = check;
+                        array[i,1] = talentFix.ToUpper();
+                        loop2 = true;
+                    } else{
+                        Write("Invalid Input, Try again: ");
+                    }
+                }
+            }
         }
+        loop1 = false;
     }
     return array;
    }
@@ -164,7 +188,7 @@ class GreenvilleRevenue
                 loop = 2;
                 break;
             default:
-                WriteLine("{0} is an invalid code");
+                WriteLine("{0} is an invalid code", consInput.ToUpper());
                 break;
         }
     }
