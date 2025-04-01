@@ -121,11 +121,11 @@ class GreenvilleRevenue
    }
    public static void GetLists(string[,] array)
    {
-    int loop = 0;
+    bool loop = false;
     int rowLength = array.GetLength(0);
     int SCount = 0, DCount = 0, MCount = 0, OCount = 0;
 
-    while(loop == 0){
+    while(loop == false){
         for(int i = 0; i < rowLength; ++i){
             if(array[i,1] == "S"){
                 SCount += 1;
@@ -140,56 +140,70 @@ class GreenvilleRevenue
                 OCount += 1;
             }
         }
-        loop = 1;
+        loop = true;
     }
+
     WriteLine("The amount of talent are: \nSinging: {0} \nDancing: {1} \nMusical Instrument: {2} \nOther: {3}",
     SCount, DCount, MCount, OCount);
-    while(loop == 1){
+    char dataCheck;
+    string check = "";
+    bool result;
+    while(loop == true){
         Write("What would you like to view (S/D/M/O) or 'Z' to quit: ");
-        string consInput = ReadLine();
-        switch(consInput.ToUpper()){
-            case "S":
-                for(int i = 0; i < rowLength; ++i){
-                    for(int j = 0; j < 1; ++j){
-                        if(array[i,1] == "S"){
-                            WriteLine("{0} ", array[i,0]);
+        check = ReadLine();
+        result = char.TryParse(check, out dataCheck);
+        if(result){
+            string consInput = check;
+            switch(consInput.ToUpper()){
+                case "S":
+                WriteLine("Singing: ");
+                    for(int i = 0; i < rowLength; ++i){
+                        for(int j = 0; j < 1; ++j){
+                            if(array[i,1] == "S"){
+                                WriteLine("{0} ", array[i,0]);
+                            }
                         }
                     }
-                }
-                break;
-            case "D":
-                for(int i = 0; i < rowLength; ++i){
-                    for(int j = 0; j < 1; ++j){
-                        if(array[i,1] == "D"){
-                            WriteLine("{0} ", array[i,0]);
+                    break;
+                case "D":
+                    WriteLine("Dancing: ");
+                    for(int i = 0; i < rowLength; ++i){
+                        for(int j = 0; j < 1; ++j){
+                            if(array[i,1] == "D"){
+                                WriteLine("{0} ", array[i,0]);
+                            }
                         }
                     }
-                }
-                break;
-            case "M":
-                for(int i = 0; i < rowLength; ++i){
-                    for(int j = 0; j < 1; ++j){
-                        if(array[i,1] == "M"){
-                             WriteLine("{0} ", array[i,0]);
+                    break;
+                case "M":
+                    WriteLine("Musical Instrument: ");
+                    for(int i = 0; i < rowLength; ++i){
+                        for(int j = 0; j < 1; ++j){
+                            if(array[i,1] == "M"){
+                                WriteLine("{0} ", array[i,0]);
+                            }
                         }
                     }
-                }
-                break;
-            case "O":
-                for(int i = 0; i < rowLength; ++i){
-                    for(int j = 0; j < 1; ++j){
-                        if(array[i,1] == "O"){
-                            WriteLine("{0} ", array[i,0]);
+                    break;
+                case "O":
+                WriteLine("Other: ");
+                    for(int i = 0; i < rowLength; ++i){
+                        for(int j = 0; j < 1; ++j){
+                            if(array[i,1] == "O"){
+                                WriteLine("{0} ", array[i,0]);
+                            }
                         }
                     }
-                }
-                break;
-            case "Z":
-                loop = 2;
-                break;
-            default:
-                WriteLine("{0} is an invalid code", consInput.ToUpper());
-                break;
+                    break;
+                case "Z":
+                    loop = false;
+                    break;
+                default:
+                    WriteLine("{0} is an invalid code", consInput.ToUpper());
+                    break;
+            }  
+        } else{
+            WriteLine("Invalid Input, Try again ");
         }
     }
    }
