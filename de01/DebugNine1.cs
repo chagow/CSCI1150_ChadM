@@ -13,26 +13,26 @@ class DebugNine1
 
       // Get info for first class
       Write("What class do you have homework for? ");
-      entry = ReadLine();
-      course1.className = entryString;
+      entryString = ReadLine();
+      course1.ClassName = entryString;
       Write("How many exercises must you complete? ");
-      entryString = ReadLine(entry);
-      int.TryParse(entryString, exercises);
-      exercises = course1.NumberOfExercises;
+      entryString = ReadLine();
+      int.TryParse(entryString, out exercises);
+      course1.NumberOfExercises = exercises;
       
       // Get info for another class
       Write("What class do you have homework for? ");
       entryString = ReadLine();
-      course2.className = entrystring;
+      course2.ClassName = entryString;
       Write("How many exercises must you complete? ");
       entryString = ReadLine();
-      char.TryParse(entryString, exercises);
+      int.TryParse(entryString, out exercises);
       course2.NumberOfExercises = exercises;
 
       WriteLine("You have {0} minutes of homework for {1}",
-            course1.timeToComplete, course1.ClassName);      
+            course1.TimeToComplete, course1.ClassName);      
       WriteLine("and {0} more minutes for {1}",
-            course2.timeToComplete,course2.ClassName);
+            course2.TimeToComplete,course2.ClassName);
    }
 }
 class HomeworkAssignment
@@ -41,16 +41,16 @@ class HomeworkAssignment
    private int timeToComplete;
    // 10 minutes to complete each exercise
    private const int TIME_PER_EXERCISE = 10;
-   public ClassName {get; set};
+   public string ClassName {get; set;}
    public int NumberOfExercises
    {
       get
       {
-         return numberOfexercises;
+         return numberOfExercises;
       }
       set
       {
-         numberOfExercises = number;
+         numberOfExercises = value;
          CalcCompletionTime();
       }
    }
