@@ -218,10 +218,10 @@ class GreenvilleRevenue
    static void DisplayTable(List<Contestant> contestants)
    {
         WriteLine("\nContestants: ");
-        WriteLine("{0, -20} {1, 15} {2, -20}", "Name", "Talent Code", "Talent Name");
-        WriteLine(new string('-', 55));
+        WriteLine("{0, -20} {1, -15} {2, -20}", "Name:", "Talent Code:", "Talent Name:");
+        WriteLine(new string('_', 50));
         foreach(var contestant in contestants){
-            WriteLine("{0, -20} {1, 15} {2, -20}", contestant.Name, contestant.TalentCode, contestant.TalentDescription);
+            WriteLine("{0, -20} {1, -15} {2, -20}", contestant.Name, contestant.TalentCode, contestant.TalentDescription);
         }
    }
 }
