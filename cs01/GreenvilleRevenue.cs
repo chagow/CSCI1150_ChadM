@@ -2,10 +2,12 @@ using System;
 using static System.Console;
 using System.Globalization;
 using System.Data;
+using System.Xml.Schema;
 class GreenvilleRevenue
 {
    static void Main()
    {
+    List<Contestant> contestants = new List<Contestant>();
     double oldcon = 0, newcon = 0, oldcheck, newcheck;
     double loop = 0;
     Write("Enter number of contestants last year: ");
@@ -34,7 +36,7 @@ class GreenvilleRevenue
 
     int thisCon = Convert.ToInt32(newcon);
     string[,] talentNames = new string[thisCon,2];
-    GetContestantData(talentNames);
+    GetContestantData(talentNames, ref contestants);
     for(int i = 0; i < thisCon; ++i){
         Write(talentNames[i,0]+" ");
         for(int j = 0; j < 1; ++j){
@@ -42,8 +44,9 @@ class GreenvilleRevenue
         }
     }
     GetLists(talentNames);
-
+    DisplayTable(contestants);
    }
+
    public static double GetContestantNumber()
    {
       string check;
@@ -79,22 +82,24 @@ class GreenvilleRevenue
          WriteLine("A tighter race this year! Come out and cast your vote!");
       }
    }
-   public static string[,] GetContestantData(string[,] array)
+   public static string[,] GetContestantData(string[,] array, ref List<Contestant> contestants)
    {
     int i = 0, j = 0;
     int rowLength = array.GetLength(0);
     string check;
     bool result, loop1 = true, loop2 = true;
-    while(loop1 == true){
+    while(loop1){
         for(i = 0; i < rowLength; ++i){
+            Contestant contestant = new Contestant();
             Write("Name of Contestant {0}: ", i+1);
-            while(loop2 == true){
+            while(loop2){
                 int dataCheck;
                 check = ReadLine();
                 result = int.TryParse(check, out dataCheck);
                 if(result){
                     Write("Invalid Input, Try again: ");
                 } else{
+                    contestant.Name = check;
                     array[i,0] = check;
                     loop2 = false;
                 }
@@ -107,6 +112,8 @@ class GreenvilleRevenue
                     result = char.TryParse(check, out dataCheck);
                     if(result){
                         string talentFix = check;
+                        contestant.TalentCode = talentFix;
+                        contestants.Add(contestant);
                         array[i,1] = talentFix.ToUpper();
                         loop2 = true;
                     } else{
@@ -207,4 +214,60 @@ class GreenvilleRevenue
         }
     }
    }
+
+   static void DisplayTable(List<Contestant> contestants)
+   {
+        WriteLine("\nContestants: ");
+        WriteLine("{0, -20} {1, 15} {2, -20}", "Name", "Talent Code", "Talent Name");
+        WriteLine(new string('-', 55));
+        foreach(var contestant in contestants){
+            WriteLine("{0, -20} {1, 15} {2, -20}", contestant.Name, contestant.TalentCode, contestant.TalentDescription);
+        }
+   }
+}
+class Contestant
+{
+    public static string[] talentCodes = {"S","D","M","O"};
+    public static string[] talentStrings = {"Singing","Dancing","Musical Instrument","Other"};
+    private string name;
+    private string talentCode;
+    private string talent;
+
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+        set
+        {
+            name = value;
+        }
+    }
+    public string TalentCode
+    {
+        get
+        {
+            return talentCode;
+        }
+        set
+        {
+            if(Array.IndexOf(talentCodes, value.ToUpper()) != -1)
+            {
+                talentCode = value.ToUpper();
+                talent = talentStrings[Array.IndexOf(talentCodes, talentCode)];
+            } else
+            {
+                talentCode = "I";
+                talent = "Invalid";
+            }
+        }
+    }
+    public string TalentDescription
+    {
+        get
+        {
+            return talent;
+        }
+    }
 }
