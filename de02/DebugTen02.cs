@@ -23,30 +23,30 @@ class DebugTen02
 public abstract class Street
 {
    protected string name;
-   private string direction;
-   public Street(string name string travelDirection)
+   protected string direction;
+   public Street(string name, string direction)
    {
-      name = name;
-      direction = direction;
+      this.name = name;
+      this.direction = direction;
    }
    public string Name
    {
       get
       {
-         return Name;
+        return name;
       }
    }
    public abstract string MakeUTurn();
 }
 class OneWayStreet : Street
 {
-   public OneWayStreet(string name, string direction)
+   public OneWayStreet(string name, string direction) : base(name, direction)
    {
    }
 
    public override string MakeUTurn()
    {
-      strin temp = "U Turn is illegal! Was going and still going " + direction;
+      string temp = "U Turn is illegal! Was going and still going " + direction;
       return temp;
    }
 }
@@ -56,7 +56,7 @@ class TwoWayStreet : Street
    public TwoWayStreet(string name, string direction) : base(name, direction)
    {
    }
-   public override string MakeUTurn
+   public override string MakeUTurn()
    {
       string wasGoing = direction;
       string[] directions = {"north", "south", "east", "west"};
@@ -71,6 +71,6 @@ class TwoWayStreet : Street
       }
       string temp = "U Turn successful. Was going " + wasGoing + 
          ". Now going " + direction;
-      return;      
+      return temp;      
    }
 }
