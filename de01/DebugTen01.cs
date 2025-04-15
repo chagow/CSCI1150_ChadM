@@ -8,29 +8,30 @@ class DebugTen01
 {
    static void Main()
    {
-      Customer aRegularCustomer = new RegularCustomer();
+      Customer aRegularCustomer = new Customer();
       FrequentCustomer aFrequentCustomer = new FrequentCustomer();
       aRegularCustomer.CustNum = 2514;
-      aRegularCustomer.custBalance = 765.00;
-      aFrequentCustomer.custNum = 5719;
-      aFrequentCustomer.CustBalance = 2500.00;
+      aRegularCustomer.CustBal = 765.00;
+      aFrequentCustomer.CustNum = 5719;
+      aFrequentCustomer.CustBal = 2500.00;
       aFrequentCustomer.DiscountRate = 0.15;
       WriteLine("\naRegularCustomer #{0} owes {1}",
          aRegularCustomer.CustNum,
-         aRegularCustomer.CustBalanceToString(C2));
-      WriteLine("\naFrequentCustomer #{0 would owe {1} without the discount",
+         aRegularCustomer.CustBal.ToString("C2"));
+      WriteLine("\naFrequentCustomer #{0} would owe {1} without the discount",
          aFrequentCustomer.CustNum,
-         aFrequentCustomer.CustBalance.ToString(C2)); 
-      double newBal = (1 - aFrequentCusstomer.DiscountRate) *
-         aFrequentCustomer.CustBalance;
+         aFrequentCustomer.CustBal.ToString("C2")); 
+      double newBal = (1 - aFrequentCustomer.DiscountRate) *
+         aFrequentCustomer.CustBal;
       WriteLine("...with {0} discount, customer owes {1}",
-         aFrequentCustomer.discountRate.ToString("P"), newBal.ToString("C", CultureInfo.GetCultureInfo("en-US")));
+         aFrequentCustomer.DiscountRate.ToString("P"), newBal.ToString("C", CultureInfo.GetCultureInfo("en-US")));
+    }
 }
 class Customer
 {
    private int custNum;
    private double custBalance;
-   private int CustNum
+   public int CustNum
    {
       get
       {
@@ -45,26 +46,26 @@ class Customer
    {
       get
       {
-         return custBalance;
+        return custBalance;
       }
       set
       {
-         custBalance + value;
+        custBalance = value;
       }
    }
 }
-FrequentCustomer & Customer
+class FrequentCustomer : Customer
 {
-   private double discountRate;
-   public double DiscountRate
-   {
-      get
-      {
-         return discountRate;
-      }
-      set
-      {
-         discountRate = value;
-      }
-   }
+    private double discountRate;
+    public double DiscountRate
+    {
+        get
+        {
+            return discountRate;
+        }
+        set
+        {
+            discountRate = value;
+        }
+    }
 }
