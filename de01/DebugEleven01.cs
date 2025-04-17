@@ -6,17 +6,18 @@ class DebugEleven01
 {
    static void Main()
    {
-      double salary;
+      double salary = 0;
       string salVal;
-      bool isValidSalary;
+      bool isValidSalary = false;
       while(!isValidSalary)
       {
-         try
+         try{
             Write("Enter an employee's salary ");
             salVal = ReadLine();
             salary = Convert.ToDouble(salVal);
             isValidSalary = true;
-         catch(Formatexception)
+         }
+         catch(FormatException)
          {
             WriteLine("You must enter a number for the salary.");
          }
