@@ -1,11 +1,3 @@
-/* Sorry for being late on a lot of things as of lately
-I have to submit this unfinished since I don't got a clue on
-How to fix the print output to show all pieces of data for a Contestant.
-Due to the major increase to code's size too, it's a bit hard to navigate through issues.
-If there is one thing I may look into changing, is turning the
-'contestants' list into an array, since it may be easier.
-Also, the override ToString() is unfinished, which is another matter that I will look into.
-Once again, sorry for the inconvenience */
 using System;
 using static System.Console;
 using System.Globalization;
@@ -13,7 +5,7 @@ class GreenvilleRevenue
 {
    static void Main()
    {
-    List<Contestant> contestants = new List<Contestant>();
+    
     double oldcon = 0, newcon = 0, oldcheck, newcheck;
     double loop = 0;
     Write("Enter number of contestants last year: ");
@@ -42,6 +34,7 @@ class GreenvilleRevenue
 
     int thisCon = Convert.ToInt32(newcon);
     string[,] talentNames = new string[thisCon,3];
+    Contestant[] contestants = new Contestant[thisCon];
     GetContestantData(talentNames, contestants);
     for(int i = 0; i < thisCon; ++i){
         Write(talentNames[i,0]+" ");
@@ -88,7 +81,7 @@ class GreenvilleRevenue
          WriteLine("A tighter race this year! Come out and cast your vote!");
       }
    }
-   public static string[,] GetContestantData(string[,] array, List<Contestant> contestants)
+   public static string[,] GetContestantData(string[,] array, Contestant[] contestants)
    {
     const int adultAge = 17;
     const int teenAge = 12;
@@ -98,7 +91,7 @@ class GreenvilleRevenue
     bool result, loop1 = true, loop2 = true;
     while(loop1){
         for(i = 0; i < rowLength; ++i){
-            Contestant contestant = new Contestant();
+            Contestant contestant = new Contestant("", "", "", 0);
             Write("Name of Contestant {0}: ", i+1);
             while(loop2){
                 int dataCheck;
@@ -109,6 +102,7 @@ class GreenvilleRevenue
                 } else{
                     contestant.Name = check;
                     array[i,0] = check;
+                    contestants[i] = contestant;
                     loop2 = false;
                 }
             }
@@ -124,7 +118,7 @@ class GreenvilleRevenue
                         contestant.TalentCode = talentFix;
                         array[i,1] = talentFix.ToUpper();
                         loop2 = true;
-                        contestants.Add(contestant);
+                        contestants[i] = contestant;
                     } else{
                         Write("Invalid Input, Try again: ");
                     }
@@ -137,13 +131,13 @@ class GreenvilleRevenue
                     if(ageResult){
                         intCheck = Convert.ToInt32(ageCheck);
                         if(intCheck > adultAge){
-                            contestants[i] = new AdultContestant();
+                            contestants[i] = new AdultContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Fee);
                         }
                         else if (intCheck > teenAge){
-                            contestants[i] = new TeenContestant();
+                            contestants[i] = new TeenContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Fee);
                         }
                         else{
-                            contestants[i] = new ChildContestant();
+                            contestants[i] = new ChildContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Fee);
                         }
                         loop3 = false;
                     }
@@ -180,7 +174,6 @@ class GreenvilleRevenue
         }
         loop = true;
     }
-
     WriteLine("The amount of talent are: \nSinging: {0} \nDancing: {1} \nMusical Instrument: {2} \nOther: {3}",
     SCount, DCount, MCount, OCount);
     char dataCheck;
@@ -246,17 +239,17 @@ class GreenvilleRevenue
     }
    }
 
-   static void DisplayTable(List<Contestant> contestants)
+   static void DisplayTable(Contestant[] contestants)
    {
         WriteLine("\nContestants: ");
-        WriteLine("{0, -15} {1, -15} {2, -15} {3, -15}", "Name:", "Talent Code:", "Talent Name:", "Fee:");
+        //WriteLine("{0, -15} {1, -15} {2, -15} {3, -15}", "Name:", "Talent Code:", "Talent Name:", "Fee:");
         WriteLine(new string('_', 75));
         foreach(var contestant in contestants){
-            WriteLine("{0, -15} {1, -15} {2, -15} {3,-15}", contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Fee);
+            WriteLine(contestant.ToString());
         }
    }
 }
-class Contestant
+public class Contestant
 {
     public static string[] talentCodes = {"S","D","M","O"};
     public static string[] talentStrings = {"Singing","Dancing","Musical Instrument","Other"};
@@ -264,6 +257,13 @@ class Contestant
     private string talentCode;
     private string talent;
     private int fee;
+
+    public Contestant(string name, string talentCode, string talent, int fee){
+        this.name = name;
+        this.talentCode = talentCode;
+        this.talent = talent;
+        this.fee = fee;
+    }
     public string Name
     {
         get
@@ -306,43 +306,45 @@ class Contestant
         get{return fee;} 
         set{fee = value;}
     }
-
+    public override string ToString()
+    {
+        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Talent Name: " + TalentDescription + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+    }
 }
 class ChildContestant : Contestant
 {
     public int childFee = 15;
-    public ChildContestant()
+    public ChildContestant(string name, string talentCode, string talent, int fee) : base(name, talentCode, talent, fee)
     {
         Fee = childFee;
     }
     public override string ToString()
     {
-        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Talent Name: " + TalentDescription + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
     }
 }
 
 class TeenContestant : Contestant
 {
     public int teenFee = 20;
-    public TeenContestant()
+    public TeenContestant(string name, string talentCode, string talent, int fee) : base(name, talentCode, talent, fee)
     {
         Fee = teenFee;
     }
     public override string ToString()
     {
-        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
-    }
+        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Talent Name: " + TalentDescription + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));    }
 }
 
 class AdultContestant : Contestant
 {
     public int adultFee = 30;
-    public AdultContestant()
+    public AdultContestant(string name, string talentCode, string talent, int fee) : base(name, talentCode, talent, fee)
     {
         Fee = adultFee;
     }
     public override string ToString()
     {
-        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Talent Name: " + TalentDescription + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
     }
 }
