@@ -13,7 +13,7 @@ class GreenvilleRevenue
     while(loop == 0){
         if(oldcheck < 0 || oldcheck > 30){
             Write("Invalid amount. Re-enter the amount of contestants last year: ");
-            oldcheck = Convert.ToDouble(ReadLine());
+            oldcheck = GetContestantNumber();
         } else{
             oldcon = oldcheck;
             loop += 1;
@@ -24,7 +24,7 @@ class GreenvilleRevenue
     while(loop == 1){
         if(newcheck < 0 || newcheck > 30){
             Write("Invalid amount. Re-enter the amount of contestants this year: ");
-            newcheck = Convert.ToDouble(ReadLine());
+            newcheck = GetContestantNumber();
         } else{
             newcon = newcheck;
             loop += 1;
@@ -52,14 +52,14 @@ class GreenvilleRevenue
       double dataCheck = 0;
       bool result, loop = true;
       while(loop == true){
-         check = ReadLine();
-         result = double.TryParse(check, out dataCheck);
-         if(result == true){
+        try{
+            check = ReadLine();
             dataCheck = Convert.ToDouble(check);
             loop = false;
-         } else{
-            Write("Invalid Input, Try again: ");
-         }
+        }
+        catch(FormatException){
+            Write("You must enter a number from 0 - 30: ");
+        }
       }
       return dataCheck;
    }
@@ -87,7 +87,7 @@ class GreenvilleRevenue
     const int teenAge = 12;
     int i = 0, j = 0;
     int rowLength = array.GetLength(0);
-    string check;
+    string check = "";
     bool result, loop1 = true, loop2 = true;
     while(loop1){
         for(i = 0; i < rowLength; ++i){
@@ -111,16 +111,22 @@ class GreenvilleRevenue
                 Write("What is their Talent? (S/D/M/O): ");
                 while(loop2 == false){
                     char dataCheck;
-                    check = ReadLine();
+                    check = ReadLine().ToUpper();
                     result = char.TryParse(check, out dataCheck);
                     if(result){
+                        try{
+                            if(check != "S" && check != "D" && check != "M" && check != "O"){
+                                throw new ArgumentException();
+                            }
+                        }
+                        catch(ArgumentException){
+                            WriteLine(check + " is not a valid talent code. Assigned as Invalid.");
+                        }
                         string talentFix = check;
                         contestant.TalentCode = talentFix;
                         array[i,1] = talentFix.ToUpper();
                         loop2 = true;
                         contestants[i] = contestant;
-                    } else{
-                        Write("Invalid Input, Try again: ");
                     }
                 }
                 while(loop3){
@@ -230,9 +236,15 @@ class GreenvilleRevenue
                     loop = false;
                     break;
                 default:
-                    WriteLine("{0} is an invalid code", consInput.ToUpper());
+                    try{
+                        throw new ArgumentException();
+                    }
+                    catch(ArgumentException ex){
+                        WriteLine("{0} is not a valid code, {1}", consInput, ex.Message);
+
+                    }
                     break;
-            }  
+                }  
         } else{
             WriteLine("Invalid Input, Try again ");
         }
@@ -242,7 +254,6 @@ class GreenvilleRevenue
    static void DisplayTable(Contestant[] contestants)
    {
         WriteLine("\nContestants: ");
-        //WriteLine("{0, -15} {1, -15} {2, -15} {3, -15}", "Name:", "Talent Code:", "Talent Name:", "Fee:");
         WriteLine(new string('_', 75));
         foreach(var contestant in contestants){
             WriteLine(contestant.ToString());
