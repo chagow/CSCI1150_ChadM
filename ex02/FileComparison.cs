@@ -14,6 +14,6 @@ class FileComparison
       double ratio = (double) size2 / size1 * 100;
       WriteLine("The size of the Word file is {0}", size1);
       WriteLine("and the size of the Notepad file is {0}", size2);
-      WriteLine("The Notepad file is {0}% of the size of the Word file", ratio.ToString("#.##"));
+      WriteLine("The Notepad file is {0} % of the size of the Word file", ratio.ToString("0.##"));
    }
 }
