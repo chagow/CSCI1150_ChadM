@@ -8,7 +8,6 @@ class GreenvilleRevenue
 {
    static void Main()
    {
-    
     double oldcon = 0, newcon = 0, oldcheck, newcheck;
     double loop = 0;
     Write("Enter number of contestants last year: ");
@@ -22,6 +21,7 @@ class GreenvilleRevenue
             loop += 1;
         }
     }
+
     Write("Enter number of contestants this year: ");
     newcheck = GetContestantNumber();
     while(loop == 1){
@@ -33,11 +33,13 @@ class GreenvilleRevenue
             loop += 1;
         }
     }
+
     DisplayRelationship(oldcon, newcon);
 
     int thisCon = Convert.ToInt32(newcon);
     string[,] talentNames = new string[thisCon,3];
     Contestant[] contestants = new Contestant[thisCon];
+
     GetContestantData(talentNames, contestants);
     for(int i = 0; i < thisCon; ++i){
         Write(talentNames[i,0]+" ");
@@ -45,6 +47,7 @@ class GreenvilleRevenue
             WriteLine(talentNames[i,1]);
         }
     }
+
     GetLists(talentNames);
     DisplayTable(contestants);
    }
@@ -86,6 +89,11 @@ class GreenvilleRevenue
    }
    public static string[,] GetContestantData(string[,] array, Contestant[] contestants)
    {
+    const string DELIM = ","; 
+    const string fileName = "Greenville.ser";
+    FileStream outFile = new FileStream(fileName, FileMode.Open, FileAccess.Write);
+    StreamWriter writer = new StreamWriter(outFile);
+
     const int adultAge = 17;
     const int teenAge = 12;
     int i = 0, j = 0;
@@ -139,6 +147,7 @@ class GreenvilleRevenue
                     bool ageResult = int.TryParse(ageCheck, out intCheck);
                     if(ageResult){
                         intCheck = Convert.ToInt32(ageCheck);
+                        contestant.Age = intCheck;
                         if(intCheck > adultAge){
                             contestants[i] = new AdultContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Fee);
                         }
@@ -148,6 +157,7 @@ class GreenvilleRevenue
                         else{
                             contestants[i] = new ChildContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Fee);
                         }
+                        writer.WriteLine(contestants[i]);
                         loop3 = false;
                     }
                     else{
@@ -158,6 +168,8 @@ class GreenvilleRevenue
         }
         loop1 = false;
     }
+    writer.Close();
+    outFile.Close();
     return array;
    }
    public static void GetLists(string[,] array)
@@ -165,6 +177,13 @@ class GreenvilleRevenue
     bool loop = false;
     int rowLength = array.GetLength(0);
     int SCount = 0, DCount = 0, MCount = 0, OCount = 0;
+
+    const char DELIM = ",";
+    const string fileName = "Greenville.ser";
+    FileStream inFile = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+    StreamReader reader = new StreamReader(inFile);
+    string recordIn;
+    string[] fields;
 
     while(loop == false){
         for(int i = 0; i < rowLength; ++i){
@@ -270,6 +289,7 @@ public class Contestant
     private string name;
     private string talentCode;
     private string talent;
+    private int age;
     private int fee;
 
     public Contestant(string name, string talentCode, string talent, int fee){
@@ -314,6 +334,11 @@ public class Contestant
         {
             return talent;
         }
+    }
+    public int Age
+    {
+      get{return age;}
+      set{age = value;}
     }
     public int Fee 
     {
