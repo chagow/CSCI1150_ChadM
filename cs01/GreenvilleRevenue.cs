@@ -5,6 +5,13 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 class GreenvilleRevenue
+/*
+* Hello! Chad Moua here.
+* I wasn't able to implement the data reads fast enough to be usable.
+* This program also only works if you have created your own Greenville.ser file.
+* This course was lots of fun and thought provoking at times.
+* I hope you have a good summer once the semester is over!
+*/
 {
    static void Main()
    {
