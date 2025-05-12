@@ -102,7 +102,7 @@ class GreenvilleRevenue
     bool result, loop1 = true, loop2 = true;
     while(loop1){
         for(i = 0; i < rowLength; ++i){
-            Contestant contestant = new Contestant("", "", "", 0);
+            Contestant contestant = new Contestant("", "", "", 0, 0);
             Write("Name of Contestant {0}: ", i+1);
             while(loop2){
                 int dataCheck;
@@ -149,13 +149,13 @@ class GreenvilleRevenue
                         intCheck = Convert.ToInt32(ageCheck);
                         contestant.Age = intCheck;
                         if(intCheck > adultAge){
-                            contestants[i] = new AdultContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Fee);
+                            contestants[i] = new AdultContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Age, contestant.Fee);
                         }
                         else if (intCheck > teenAge){
-                            contestants[i] = new TeenContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Fee);
+                            contestants[i] = new TeenContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Age,  contestant.Fee);
                         }
                         else{
-                            contestants[i] = new ChildContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Fee);
+                            contestants[i] = new ChildContestant(contestant.Name, contestant.TalentCode, contestant.TalentDescription, contestant.Age, contestant.Fee);
                         }
                         writer.WriteLine(contestants[i]);
                         loop3 = false;
@@ -177,13 +177,6 @@ class GreenvilleRevenue
     bool loop = false;
     int rowLength = array.GetLength(0);
     int SCount = 0, DCount = 0, MCount = 0, OCount = 0;
-
-    const char DELIM = ",";
-    const string fileName = "Greenville.ser";
-    FileStream inFile = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-    StreamReader reader = new StreamReader(inFile);
-    string recordIn;
-    string[] fields;
 
     while(loop == false){
         for(int i = 0; i < rowLength; ++i){
@@ -276,7 +269,7 @@ class GreenvilleRevenue
    static void DisplayTable(Contestant[] contestants)
    {
         WriteLine("\nContestants: ");
-        WriteLine(new string('_', 75));
+        WriteLine(new string('_', 73));
         foreach(var contestant in contestants){
             WriteLine(contestant.ToString());
         }
@@ -292,10 +285,11 @@ public class Contestant
     private int age;
     private int fee;
 
-    public Contestant(string name, string talentCode, string talent, int fee){
+    public Contestant(string name, string talentCode, string talent, int age, int fee){
         this.name = name;
         this.talentCode = talentCode;
         this.talent = talent;
+        this.age = age;
         this.fee = fee;
     }
     public string Name
@@ -353,37 +347,38 @@ public class Contestant
 class ChildContestant : Contestant
 {
     public int childFee = 15;
-    public ChildContestant(string name, string talentCode, string talent, int fee) : base(name, talentCode, talent, fee)
+    public ChildContestant(string name, string talentCode, string talent, int age, int fee) : base(name, talentCode, talent, age, fee)
     {
         Fee = childFee;
     }
     public override string ToString()
     {
-        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Talent Name: " + TalentDescription + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Talent Name: " + TalentDescription + " Age: " + Age + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
     }
 }
 
 class TeenContestant : Contestant
 {
     public int teenFee = 20;
-    public TeenContestant(string name, string talentCode, string talent, int fee) : base(name, talentCode, talent, fee)
+    public TeenContestant(string name, string talentCode, string talent, int age,  int fee) : base(name, talentCode, talent, age, fee)
     {
         Fee = teenFee;
     }
     public override string ToString()
     {
-        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Talent Name: " + TalentDescription + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));    }
+        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Talent Name: " + TalentDescription + " Age: " + Age + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+    }
 }
 
 class AdultContestant : Contestant
 {
     public int adultFee = 30;
-    public AdultContestant(string name, string talentCode, string talent, int fee) : base(name, talentCode, talent, fee)
+    public AdultContestant(string name, string talentCode, string talent, int age, int fee) : base(name, talentCode, talent, age, fee)
     {
         Fee = adultFee;
     }
     public override string ToString()
     {
-        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Talent Name: " + TalentDescription + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+        return GetType().Name + ": \nName: " + Name + " Talent: " + TalentCode + " Talent Name: " + TalentDescription + " Age: " + Age + " Fee: " + Fee.ToString("C", CultureInfo.GetCultureInfo("en-US"));
     }
 }
