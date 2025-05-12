@@ -10,19 +10,19 @@ class DebugFourteen2
       const string DELIM = ",";
       const string FILENAME = "StudentData.txt";
       Student stu = new Student();
-      FileStream outFile = FileStream(FILENAME, FileMode.Create, FileAccess.Write);
+      FileStream outFile = new FileStream(FILENAME, FileMode.Create, FileAccess.Write);
       StreamWriter writer = new StreamWriter(outFile);
       Write("Enter student number or " + END + " to quit ");
       stu.StuNum = Convert.ToInt32(ReadLine());
-      while(stu.StuNum == END)
+      while(stu.StuNum != END)
       {
          Write("Enter last name ");
          stu.Name = ReadLine();
-         Write("Enter grade point average ")
+         Write("Enter grade point average ");
          stu.Gpa = Convert.ToDouble(ReadLine());
          writer.WriteLine(stu.StuNum + DELIM + stu.Name + DELIM + stu.Gpa);
          Write("Enter next student number or " + END + " to quit ");
-         stu.StuNum = Convert.ToInt(ReadLine());
+         stu.StuNum = Convert.ToInt32(ReadLine());
       }
       
       writer.Close(); 
@@ -34,7 +34,7 @@ public class Student
 {
    private int stuNum;
    private string name;
-   private doubel gpa;
+   private double gpa;
    private const double MINGPA = 0.0;
    private const double MAXGPA = 4.0;
    public int StuNum {get; set;}
